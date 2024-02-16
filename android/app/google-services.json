@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "383082111874",
+    "project_id": "teladelogingenerica",
+    "storage_bucket": "teladelogingenerica.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383082111874:android:cfb87601297c0f214be59b",
+        "android_client_info": {
+          "package_name": "mikael_flutter_projects.tela_de_login"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqJkupb6Ae5Y97b2ZARaGvzK-FJEgk23Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
