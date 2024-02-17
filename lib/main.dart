@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tela_de_login/telas/login.dart';
-import 'package:tela_de_login/telas/login_pokemon.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -52,7 +51,7 @@ class _HomeTelaState extends State<HomeTela> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            tela == true ? login(alterarTela: alterarTela) : login_pokemon(),
+            login(),
           ],
         ),
       ),
