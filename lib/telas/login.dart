@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tela_de_login/components/FormsPerso.dart';
+import 'package:tela_de_login/telas/login_pokemon.dart';
 
 class login extends StatefulWidget {
-  final void Function() alterarTela;
-  login({required this.alterarTela});
   @override
   State<login> createState() => _loginState();
 }
@@ -12,26 +12,26 @@ class _loginState extends State<login> {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          alignment: Alignment.bottomCenter,
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.blue),
-                    color: Colors.white),
-                width: 230,
-                child: TextFormField(
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          Container(
+            alignment: Alignment.bottomCenter,
+            child: Column(
+              children: [
+                FormsPerso(
                   controller: _emailController,
                   cursorColor: Colors.blue,
                   style: TextStyle(color: Colors.blue),
-                  decoration: InputDecoration(
+                  hintText: 'Email',
+                  hintStyle: TextStyle(color: Colors.blue),
+                  inputDecoration: InputDecoration(
+                    border: InputBorder.none,
                     icon: Padding(
                       padding: EdgeInsets.only(left: 8),
                       child: Icon(
@@ -39,9 +39,6 @@ class _loginState extends State<login> {
                         color: Colors.blue,
                       ),
                     ),
-                    hintText: 'Email',
-                    hintStyle: TextStyle(color: Colors.blue),
-                    border: InputBorder.none,
                   ),
                   validator: (String? value) {
                     if (value == null) {
@@ -54,81 +51,119 @@ class _loginState extends State<login> {
                       return "O email não é válido";
                     }
                     return null;
-                  },
+                  }, obscureText: false,
                 ),
-              ),
-              Padding(padding: EdgeInsets.all(2)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.blue),
-                        color: Colors.white),
-                    width: 230,
-                    child: TextFormField(
-                      cursorColor: Colors.blue,
-                      controller: _passController,
-                      style: TextStyle(color: Colors.blue),
-                      decoration: InputDecoration(
-                        icon: Padding(
-                          padding: EdgeInsets.only(left: 8),
-                          child: Icon(
-                            Icons.lock,
-                            color: Colors.blue,
+                const Padding(padding: EdgeInsets.all(6)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FormsPerso(
+                        cursorColor: Colors.blue,
+                        controller: _passController,
+                        style: TextStyle(color: Colors.blue),
+                        hintStyle: const TextStyle(color: Colors.blue),
+                        inputDecoration: InputDecoration(
+                          icon: const Padding(
+                            padding: EdgeInsets.only(left: 8),
+                            child: Icon(
+                              Icons.lock,
+                              color: Colors.blue,
+                            ),
+                          ),
+                          hintText: 'Senha',
+                          hintStyle: const TextStyle(color: Colors.blue),
+                          border: InputBorder.none,
+                          suffixIcon: GestureDetector(
+                            child: Icon(
+                                _showPass == false
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: Colors.blue),
+                            onTap: () {
+                              setState(() {
+                                _showPass = !_showPass;
+                              });
+                            },
                           ),
                         ),
-                        hintText: 'Senha',
-                        hintStyle: TextStyle(color: Colors.blue),
-                        border: InputBorder.none,
-                        suffixIcon: GestureDetector(
-                          child: Icon(
-                              _showPass == false
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: Colors.blue),
-                          onTap: () {
-                            setState(() {
-                              _showPass = !_showPass;
-                            });
-                          },
-                        ),
-                      ),
-                      obscureText: _showPass == false ? true : false,
-                      validator: (String? value) {
-                        if (value == null) {
-                          return "A senha não pode estar vazio";
-                        }
-                        if (value.length < 5) {
-                          return "A senha é muito curta";
-                        }
+                        obscureText: _showPass == false ? true : false,
+                        validator: (String? value) {
+                          if (value == null) {
+                            return "A senha não pode estar vazio";
+                          }
+                          if (value.length < 5) {
+                            return "A senha é muito curta";
+                          }
 
-                        return null;
-                      },
-                    ),
+                          return null;
+                        },
+                      ),
+                    
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const Padding(padding: EdgeInsets.all(6)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  border: Border.all(color: Colors.blue),
+                  color: Colors.white,
+                ),
+                child: TextButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const login_pokemon(),
+                        ),
+                      );
+                    }
+                  },
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(color: Colors.blue),
                   ),
-                ],
+                ),
+              ),
+              SizedBox(
+                width: 30,
+              ),
+              Container(
+                width: 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  border: Border.all(color: Colors.blue),
+                  color: Colors.white,
+                ),
+                child: TextButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Dados processados com sucesso'),
+                      ));
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const login_pokemon(),
+                        ),
+                      );
+                    }
+                  },
+                  child: const Text(
+                    'Cadastrar',
+                    style: TextStyle(color: Colors.blue),
+                  ),
+                ),
               ),
             ],
           ),
-        ),
-        Padding(padding: EdgeInsets.all(2)),
-        Container(
-          width: 100,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(40),
-            border: Border.all(color: Colors.blue),
-            color: Colors.white,
-          ),
-          child: TextButton(
-            onPressed: () => {
-              widget.alterarTela()
-            },
-            child: Text('Login', style: TextStyle(color: Colors.blue),),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
