@@ -1,24 +1,21 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class login_pokemon extends StatefulWidget {
-  const login_pokemon({super.key});
+class login_pokemon extends StatelessWidget {
+  final Future<User?> Function() _callbackLogin;
 
-  @override
-  State<login_pokemon> createState() => _login_pokemonState();
-}
-
-class _login_pokemonState extends State<login_pokemon> {
-
+  const login_pokemon(this._callbackLogin);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      /*  decoration: BoxDecoration(
         gradient: LinearGradient(
             colors: [const Color.fromARGB(255, 60, 159, 65), Colors.green.shade200],
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter),
-      ),
+      ), */
       child: Column(
         children: <Widget>[
           SizedBox(
@@ -28,17 +25,19 @@ class _login_pokemonState extends State<login_pokemon> {
           const Text(
             'Signup with',
             style: TextStyle(
-                decoration: TextDecoration.none,               
+                decoration: TextDecoration.none,
                 color: Colors.blueGrey,
                 fontSize: 15,
                 fontWeight: FontWeight.bold),
           ),
-          const Padding(padding: EdgeInsets.all(6)),
+          const Padding(padding: EdgeInsets.all(10)),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await _callbackLogin();
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -82,6 +81,7 @@ class _login_pokemonState extends State<login_pokemon> {
               ),
             ),
           ),
+          Padding(padding: EdgeInsets.only(top: 250))
         ],
       ),
     );
