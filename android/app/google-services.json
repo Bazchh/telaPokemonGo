@@ -12,7 +12,12 @@
           "package_name": "mikael_flutter_projects.tela_de_login"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "383082111874-3s9allur9u5c2gv0m706rbaafn3v0hq5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDqJkupb6Ae5Y97b2ZARaGvzK-FJEgk23Y"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "383082111874-3s9allur9u5c2gv0m706rbaafn3v0hq5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "383082111874-qa34p97vctk5tsocgalq1e7o636grmqe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "mikaelflutterprojects.telaDeLogin"
+              }
+            }
+          ]
         }
       }
     }

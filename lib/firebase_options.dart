@@ -63,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '383082111874',
     projectId: 'teladelogingenerica',
     storageBucket: 'teladelogingenerica.appspot.com',
+    iosClientId: '383082111874-qa34p97vctk5tsocgalq1e7o636grmqe.apps.googleusercontent.com',
     iosBundleId: 'mikaelflutterprojects.telaDeLogin',
   );
 }
