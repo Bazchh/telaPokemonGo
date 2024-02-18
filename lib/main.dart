@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tela_de_login/telas/login.dart';
+import 'package:tela_de_login/telas/login_pokemon.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -27,12 +30,33 @@ class HomeTela extends StatefulWidget {
 }
 
 class _HomeTelaState extends State<HomeTela> {
-  bool tela = true;
-  void alterarTela() {
-    setState(() {
-      tela = !tela;
-    });
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
+  Future<User?> _loginGoogle() async{
+  try {
+    GoogleSignInAccount? loginEmContaGoogle = await googleSignIn.signIn();
+    GoogleSignInAuthentication autenticacaoDeLogin = await loginEmContaGoogle!.authentication;
+
+    AuthCredential credencial = GoogleAuthProvider.credential(
+      accessToken: autenticacaoDeLogin.accessToken,
+      idToken: autenticacaoDeLogin.idToken
+    );
+
+    UserCredential resultadoDeAutent = await _auth.signInWithCredential(credencial);
+    User? usuario = resultadoDeAutent.user;
+
+    /* 
+      adicionar logica para salvar dados no banco de dados do firebase aqui
+    */
+    return usuario;
+    
+  } catch (e) {
+    print('Falha ao realizar login');
+    return null;
   }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +75,8 @@ class _HomeTelaState extends State<HomeTela> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            login(),
+            login_pokemon(_loginGoogle),
+            //login()
           ],
         ),
       ),
