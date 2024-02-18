@@ -1,14 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_button/sign_in_button.dart';
 
 class login_pokemon extends StatelessWidget {
-  final Future<User?> Function() _callbackLogin;
-
+  final void Function() _callbackLogin;
   const login_pokemon(this._callbackLogin);
 
   @override
   Widget build(BuildContext context) {
+    
+
     return Container(
       /*  decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -34,48 +36,24 @@ class login_pokemon extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
+              SignInButton(
+                Buttons.google,
+                text: 'Entrar com o google',
                 onPressed: () async {
-                  await _callbackLogin();
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Image.asset(
-                      'assets/images/google_icon.png',
-                      fit: BoxFit.cover,
-                    ),
-                    const SizedBox(
-                      width: 25,
-                    ),
-                    const Text(
-                      'GOOGLE',
-                      style: TextStyle(color: Colors.blueGrey),
-                    ),
-                  ],
-                ),
-                style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(200, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  padding: EdgeInsets.zero,
-                ),
+                  _callbackLogin();
+                }
               ),
             ],
-          ),
-          const Padding(
-            padding: EdgeInsets.all(5),
           ),
           ElevatedButton(
             onPressed: () {},
             child: const Text(
               'Pokémon trainer club',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.amber[800],
-              fixedSize: const Size(200, 50),
+              fixedSize: const Size(220, 5),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
