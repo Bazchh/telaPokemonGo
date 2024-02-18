@@ -38,6 +38,7 @@ class _FormsPersoState extends State<FormsPerso> {
       child: Column(
         children: [
           TextFormField(
+            
             style: widget.style,
             controller: widget.controller,
             cursorColor: widget.cursorColor,
