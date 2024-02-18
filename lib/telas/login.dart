@@ -14,6 +14,12 @@ class _loginState extends State<login> {
   final TextEditingController _passController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  void showValidationSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(message),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -31,6 +37,7 @@ class _loginState extends State<login> {
                   hintText: 'Email',
                   hintStyle: TextStyle(color: Colors.blue),
                   inputDecoration: InputDecoration(
+                    errorStyle: TextStyle(color: Colors.grey),
                     border: InputBorder.none,
                     icon: Padding(
                       padding: EdgeInsets.only(left: 8),
@@ -42,63 +49,73 @@ class _loginState extends State<login> {
                   ),
                   validator: (String? value) {
                     if (value == null) {
+                      return "";
+                    }
+
+                    if (value == '') {
                       return "O email não pode estar vazio";
                     }
+
                     if (value.length < 5) {
                       return "O email é muito curto";
                     }
-                    if (!value.contains("@")) {
-                      return "O email não é válido";
+                    if (!value.contains("@") || !value.contains(".com")) {
+                      return "formato inválido";
                     }
                     return null;
-                  }, obscureText: false,
+                  },
+                  obscureText: false,
                 ),
                 const Padding(padding: EdgeInsets.all(6)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     FormsPerso(
-                        cursorColor: Colors.blue,
-                        controller: _passController,
-                        style: TextStyle(color: Colors.blue),
-                        hintStyle: const TextStyle(color: Colors.blue),
-                        inputDecoration: InputDecoration(
-                          icon: const Padding(
-                            padding: EdgeInsets.only(left: 8),
-                            child: Icon(
-                              Icons.lock,
-                              color: Colors.blue,
-                            ),
-                          ),
-                          hintText: 'Senha',
-                          hintStyle: const TextStyle(color: Colors.blue),
-                          border: InputBorder.none,
-                          suffixIcon: GestureDetector(
-                            child: Icon(
-                                _showPass == false
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                color: Colors.blue),
-                            onTap: () {
-                              setState(() {
-                                _showPass = !_showPass;
-                              });
-                            },
+                      cursorColor: Colors.blue,
+                      controller: _passController,
+                      style: TextStyle(color: Colors.blue),
+                      hintStyle: const TextStyle(color: Colors.blue),
+                      inputDecoration: InputDecoration(
+                        errorStyle: TextStyle(color: Colors.grey),
+                        errorMaxLines: 1,
+                        icon: const Padding(
+                          padding: EdgeInsets.only(left: 8),
+                          child: Icon(
+                            Icons.lock,
+                            color: Colors.blue,
                           ),
                         ),
-                        obscureText: _showPass == false ? true : false,
-                        validator: (String? value) {
-                          if (value == null) {
-                            return "A senha não pode estar vazio";
-                          }
-                          if (value.length < 5) {
-                            return "A senha é muito curta";
-                          }
-
-                          return null;
-                        },
+                        hintText: 'Senha',
+                        hintStyle: const TextStyle(color: Colors.blue),
+                        border: InputBorder.none,
+                        suffixIcon: GestureDetector(
+                          child: Icon(
+                              _showPass == false
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: Colors.blue),
+                          onTap: () {
+                            setState(() {
+                              _showPass = !_showPass;
+                            });
+                          },
+                        ),
                       ),
-                    
+                      obscureText: _showPass == false ? true : false,
+                      validator: (String? value) {
+                        if (value == null) {
+                          return "";
+                        }
+                        if (value == '') {
+                          return "A senha não pode estar vazio";
+                        }
+                        if (value.length < 5) {
+                          return "A senha é muito curta";
+                        }
+
+                        return null;
+                      },
+                    ),
                   ],
                 ),
               ],
@@ -117,13 +134,13 @@ class _loginState extends State<login> {
                 ),
                 child: TextButton(
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
+                    /* if (_formKey.currentState!.validate()) {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => const login_pokemon(),
                         ),
                       );
-                    }
+                    } */
                   },
                   child: const Text(
                     'Login',
@@ -147,11 +164,11 @@ class _loginState extends State<login> {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text('Dados processados com sucesso'),
                       ));
-                      Navigator.of(context).push(
+                      /* Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const login_pokemon(),
+                          builder: (context) => (const login_pokemon()),
                         ),
-                      );
+                      ); */
                     }
                   },
                   child: const Text(
