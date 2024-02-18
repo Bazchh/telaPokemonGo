@@ -1,8 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:tela_de_login/telas/login.dart';
 import 'package:tela_de_login/telas/login_pokemon.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,6 +35,7 @@ class _HomeTelaState extends State<HomeTela> {
     try {
       GoogleAuthProvider _googleAuth = GoogleAuthProvider();
       _auth.signInWithProvider(_googleAuth);
+      
     } catch (e) {
       print(e);
     }

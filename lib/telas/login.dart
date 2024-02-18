@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tela_de_login/components/FormsPerso.dart';
-import 'package:tela_de_login/telas/login_pokemon.dart';
 
 class login extends StatefulWidget {
   @override
