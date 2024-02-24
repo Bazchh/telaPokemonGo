@@ -1,14 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sign_in_button/sign_in_button.dart';
 
 class login_pokemon extends StatelessWidget {
-  final void Function() _callbackLogin;
+  final Future<User?> Function() _callbackLogin;
   const login_pokemon(this._callbackLogin);
 
   @override
   Widget build(BuildContext context) {
-    
-
     return Container(
       /*  decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -34,12 +32,33 @@ class login_pokemon extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SignInButton(
-                Buttons.google,
-                text: 'Entrar com o google',
+              ElevatedButton(
                 onPressed: () async {
-                  _callbackLogin();
-                }
+                  await _callbackLogin();
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Image.asset(
+                      'assets/images/google_icon.png',
+                      fit: BoxFit.cover,
+                    ),
+                    const SizedBox(
+                      width: 40,
+                    ),
+                    const Text(
+                      'GOOGLE',
+                      style: TextStyle(color: Colors.blueGrey),
+                    ),
+                  ],
+                ),
+                style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(220, 5),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  padding: EdgeInsets.zero,
+                ),
               ),
             ],
           ),
@@ -47,7 +66,8 @@ class login_pokemon extends StatelessWidget {
             onPressed: () {},
             child: const Text(
               'Pokémon trainer club',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.amber[800],
