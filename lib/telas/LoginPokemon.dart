@@ -1,19 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class login_pokemon extends StatelessWidget {
+class LoginPokemon extends StatelessWidget {
   final Future<User?> Function() _callbackLogin;
-  const login_pokemon(this._callbackLogin);
+  const LoginPokemon(this._callbackLogin, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      /*  decoration: BoxDecoration(
-        gradient: LinearGradient(
-            colors: [const Color.fromARGB(255, 60, 159, 65), Colors.green.shade200],
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter),
-      ), */
+    return SingleChildScrollView(
       child: Column(
         children: <Widget>[
           SizedBox(
