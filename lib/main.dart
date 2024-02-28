@@ -1,7 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:tela_de_login/telas/login_pokemon.dart';
+import 'package:tela_de_login/telas/LoginPokemon.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -46,12 +47,16 @@ class _HomeTelaState extends State<HomeTela> {
           await _auth.signInWithCredential(credencial);
       User? usuario = resultadoDeAutent.user;
 
-      /* 
-      adicionar logica para salvar dados no banco de dados do firebase aqui
-    */
+      if(usuario != null){
+        await FirebaseFirestore.instance.collection('usuarios').doc(usuario.uid).set({
+          'nome': usuario.displayName,
+          'email': usuario.email,
+          'foto de perfil': usuario.photoURL,
+        });
+      }
+
       return usuario;
     } catch (e) {
-      print('Falha ao realizar login');
       return null;
     }
   }
@@ -73,8 +78,7 @@ class _HomeTelaState extends State<HomeTela> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            login_pokemon(_loginGoogle),
-            //login()
+           LoginPokemon(_loginGoogle),
           ],
         ),
       ),
