@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tela_de_login/components/FormsPerso.dart';
 
-class login extends StatefulWidget {
+class Login extends StatefulWidget {
+  const Login({super.key});
+
   @override
-  State<login> createState() => _loginState();
+  State<Login> createState() => _LoginState();
 }
 
-class _loginState extends State<login> {
+class _LoginState extends State<Login> {
   bool _showPass = false;
 
   final TextEditingController _emailController = TextEditingController();
